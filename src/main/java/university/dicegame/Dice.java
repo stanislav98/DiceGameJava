@@ -10,13 +10,13 @@ import java.util.Random;
  *
  * @author User
  */
-public class DiceTuple {
+public class Dice {
     private int sum;
-    private final int lowest = 2;
-    private final int highest = 13;
+    private final int lowest = 1;
+    private final int highest = 7;
     
     
-    public DiceTuple() {
+    public Dice() {
         this.setSum();
     }
     

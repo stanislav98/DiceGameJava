@@ -1,7 +1,8 @@
 university\dicegame\Controller.class
 university\dicegame\ColorIcon.class
+university\dicegame\Dice.class
 university\dicegame\View.class
-university\dicegame\DiceTuple.class
 university\dicegame\Bar.class
 university\dicegame\DataBase.class
+university\dicegame\DiceTupleModel.class
 university\dicegame\Main.class

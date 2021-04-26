@@ -8,7 +8,11 @@ package university.dicegame;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.time.LocalDate;
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.Map;
 
 /**
@@ -28,6 +32,7 @@ public class DataBase {
     private String query;
     // init properties object
     private PreparedStatement preparedStmt;
+    private PreparedStatement selectStmt;
     
     public DataBase() {
         this.connect();
@@ -64,10 +69,10 @@ public class DataBase {
         try {
             query = "INSERT INTO `rolls` "
                     + "("
-                    + "`two_value`, `three_value`, `four_value`, `five_value`, "
-                    + "`six_value`, `seven_value`, `eight_value`, `nine_value`, `ten_value`, `eleven_value`, `twelve_value`"
+                    + "`two_value`, `three_value`, `four_value`, `five_value`, `six_value`, `seven_value`, "
+                    + "`eight_value`, `nine_value`, `ten_value`, `eleven_value`, `twelve_value`, `date_rolled`"
                     + ") "
-                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?)";
+                    + "VALUES (?,?,?,?,?,?,?,?,?,?,?,?)";
             this.preparedStmt = this.connection.prepareStatement(query);
         } catch(SQLException e) {
             System.err.println("Got an exception while preparing statement!");
@@ -84,10 +89,27 @@ public class DataBase {
         }
     }
     
+    public ResultSet getRollsByDate(java.sql.Date date) {
+        try {
+            String query = "Select * from `rolls` where `date_rolled` = ?";
+            selectStmt = connection.prepareStatement(query);
+            selectStmt.setDate(1, date);
+            ResultSet rs = selectStmt.executeQuery();
+            return rs;
+        } catch(SQLException e) {
+            System.err.println("Got an exception while Selecting!");
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+    
     public void InsertQuery(){
         try{
+            java.util.Date utilDate = new java.util.Date();
+            java.sql.Date sqlDate = new java.sql.Date(utilDate.getTime());
+            preparedStmt.setDate(12,sqlDate);
             preparedStmt.execute();
-            this.disconnect();
+//            this.disconnect();
         } catch(Exception e) {
             System.err.println("Got an exception while inserting!");
             System.err.println(e.getMessage());

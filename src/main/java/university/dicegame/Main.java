@@ -10,8 +10,8 @@ package university.dicegame;
  * @author User
  */
 public class Main {
-    public static void main(String[] args) {
-      DiceTuple m = new DiceTuple();
+    public static void main(String[] args){
+      DiceTupleModel m = new DiceTupleModel();
       View v = new View();
       Controller c = new Controller(m, v);
       c.initController();

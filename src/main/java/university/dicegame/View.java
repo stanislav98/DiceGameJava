@@ -5,10 +5,12 @@
  */
 package university.dicegame;
 
+import com.toedter.calendar.JCalendar;
 import java.awt.BorderLayout;
 import java.awt.Color;
 import java.awt.GridLayout;
 import java.awt.Insets;
+import java.time.LocalDate;
 
 //imported for chart
 import java.util.List;
@@ -28,6 +30,8 @@ public class View extends JPanel {
     private JPanel barPanel;
     private JPanel labelPanel;
     private JPanel buttonsPanel;
+    
+    private JCalendar calendar;
     
     private JButton exitButton;
     private JButton rollButton;
@@ -51,12 +55,16 @@ public class View extends JPanel {
         labelPanel.setBorder( new EmptyBorder(5, 10, 0, 10) );
         
         // Add button panel on right and set text for buttons
-        buttonsPanel = new JPanel(  new GridLayout(1, 2, 0, 0) );
+        buttonsPanel = new JPanel(  new GridLayout(1, 3, 0, 0) );
         exitButton = new JButton("Exit!");
         rollButton = new JButton("Roll Again!");
         
+        calendar = new JCalendar();
+        
+        
         buttonsPanel.add(rollButton);
         buttonsPanel.add(exitButton);
+        buttonsPanel.add(calendar);
         
         //add all layouts to jframe
         add(barPanel, BorderLayout.CENTER);
@@ -75,13 +83,12 @@ public class View extends JPanel {
         barPanel.removeAll();
         labelPanel.removeAll();
     }
-    
+
     public void layoutHistogram()
     {
         removeAllPanels();
-
-        int maxValue = 0;
         
+        int maxValue = 0;
         for (Bar bar: bars) {
             maxValue = Math.max(maxValue, bar.getValue());
         }
@@ -110,5 +117,9 @@ public class View extends JPanel {
     
     public JButton getRoll() {
         return this.rollButton;
+    }
+    
+    public JCalendar getCalendar() {
+        return this.calendar;
     }
 }
