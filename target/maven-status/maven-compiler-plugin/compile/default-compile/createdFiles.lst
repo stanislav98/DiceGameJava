@@ -1,4 +1,5 @@
 university\dicegame\Controller.class
+university\dicegame\ServiceClass.class
 university\dicegame\ColorIcon.class
 university\dicegame\Dice.class
 university\dicegame\View.class

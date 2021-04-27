@@ -32,6 +32,7 @@ public class View extends JPanel {
     private JPanel buttonsPanel;
     
     private JCalendar calendar;
+    private JComboBox datePicker;
     
     private JButton exitButton;
     private JButton rollButton;
@@ -58,13 +59,11 @@ public class View extends JPanel {
         buttonsPanel = new JPanel(  new GridLayout(1, 3, 0, 0) );
         exitButton = new JButton("Exit!");
         rollButton = new JButton("Roll Again!");
-        
-        calendar = new JCalendar();
-        
+        datePicker = new JComboBox();
         
         buttonsPanel.add(rollButton);
         buttonsPanel.add(exitButton);
-        buttonsPanel.add(calendar);
+        buttonsPanel.add(datePicker);
         
         //add all layouts to jframe
         add(barPanel, BorderLayout.CENTER);
@@ -82,6 +81,21 @@ public class View extends JPanel {
     public void removeAllPanels() {
         barPanel.removeAll();
         labelPanel.removeAll();
+    }
+    
+    public void setComboBox(java.sql.Date date) {
+        //first we check if item exists
+        if(((javax.swing.DefaultComboBoxModel) datePicker.getModel()).getIndexOf(date) == -1 ) {
+            datePicker.addItem(date);
+        }
+    }
+    
+    public java.sql.Date getDateValue() {
+        return (java.sql.Date)datePicker.getSelectedItem();
+    }
+    
+    public JComboBox getComboBox() {
+        return datePicker;
     }
 
     public void layoutHistogram()
@@ -118,8 +132,5 @@ public class View extends JPanel {
     public JButton getRoll() {
         return this.rollButton;
     }
-    
-    public JCalendar getCalendar() {
-        return this.calendar;
-    }
+
 }

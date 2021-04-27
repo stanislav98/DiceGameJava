@@ -10,6 +10,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.sql.Statement;
 import java.time.LocalDate;
 import java.time.ZoneId;
 import java.util.Date;
@@ -33,6 +34,7 @@ public class DataBase {
     // init properties object
     private PreparedStatement preparedStmt;
     private PreparedStatement selectStmt;
+    private Statement stmt;
     
     public DataBase() {
         this.connect();
@@ -95,6 +97,19 @@ public class DataBase {
             selectStmt = connection.prepareStatement(query);
             selectStmt.setDate(1, date);
             ResultSet rs = selectStmt.executeQuery();
+            return rs;
+        } catch(SQLException e) {
+            System.err.println("Got an exception while Selecting!");
+            System.err.println(e.getMessage());
+        }
+        return null;
+    }
+    
+    public ResultSet getDatesAvailable() {
+         try {
+            String query = "Select DISTINCT(`date_rolled`) from `rolls`";
+            stmt = connection.createStatement();
+            ResultSet rs = stmt.executeQuery(query);
             return rs;
         } catch(SQLException e) {
             System.err.println("Got an exception while Selecting!");

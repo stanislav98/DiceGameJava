@@ -13,7 +13,8 @@ public class Main {
     public static void main(String[] args){
       DiceTupleModel m = new DiceTupleModel();
       View v = new View();
-      Controller c = new Controller(m, v);
+      ServiceClass sc = new ServiceClass(m,v);
+      Controller c = new Controller(m, v, sc);
       c.initController();
     }
 }
